@@ -13,24 +13,17 @@ export function getAppointmentsForDay(state, day) {
 };
 
 export function getInterviewersForDay(state, day) {
-  const { days, appointments } = state;
+  const { days, interviewers } = state;
   const dayFromState = days.filter(el => el.name === day);
   
   let ids;
-  dayFromState[0] ? ids = dayFromState[0].appointments : ids = [];
+  dayFromState[0] ? ids = dayFromState[0].interviewers: ids = [];
   
-  const interviewers = [];
-  let temp;
-
-  for (const id of ids) {
-    temp = appointments[`${id}`].interview 
-    if (temp) {
-      if (!interviewers.includes(state.interviewers[temp.interviewer]))
-      interviewers.push(state.interviewers[temp.interviewer]);
-    }
+  if (interviewers) {
+    return Object.values(interviewers).filter(el => ids.includes(el.id));
+  } else {
+    return [];
   }
-
-  return interviewers;
 };
 
 export function getInterview(state, interview) {
