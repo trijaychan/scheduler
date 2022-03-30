@@ -27,8 +27,8 @@ function InterviewerList(props) {
   );
 };
 
-InterviewerListItem.propTypes = {
-  iterviwers: PropTypes.array.isRequired
+InterviewerList.propTypes = {
+  interviwers: PropTypes.array.isRequired
 };
 
-export default InterviewerListItem;
+export default InterviewerList;
