@@ -26,7 +26,7 @@ export default function useApplicationData() {
 
     const index = days.filter((el) => el.name === state.day)[0].id - 1;
     const dayAppointments = Object.values(appointments).filter((el) => days[index].appointments.includes(el.id));
-    const spots = dayAppointments.filter((el) => !el.interview).length + (booking ? 1 : -1);
+    const spots = dayAppointments.filter((el) => !el.interview).length + (booking ? -1 : 1);
     
     const newDays = [...days.slice(0, index), { ...days[index], spots }, ...days.slice(index + 1, days.length)];
     console.log(newDays);
@@ -48,7 +48,7 @@ export default function useApplicationData() {
         setState({
           ...state,
           appointments,
-          days: updateSpots(state, false)
+          days: updateSpots(state, true)
         });
     });
   };
