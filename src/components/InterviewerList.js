@@ -8,6 +8,7 @@ function InterviewerList(props) {
   const list = props.interviewers.map((interviewer) => {
     return (
       <InterviewerListItem 
+        key={interviewer.id}
         name={interviewer.name}
         avatar={interviewer.avatar}
         id={interviewer.id}
@@ -28,7 +29,7 @@ function InterviewerList(props) {
 };
 
 InterviewerList.propTypes = {
-  interviwers: PropTypes.array.isRequired
+  interviewers: PropTypes.array.isRequired
 };
 
 export default InterviewerList;
