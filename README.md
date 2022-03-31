@@ -10,10 +10,12 @@ A react application that allows users to book and cancel interviews.
 
 ## Getting started
 
-1. Install dependencies with `npm install`
-2. Setup the [API](https://github.com/lighthouse-labs/scheduler-api)
-3. Run the API server with `npm start` (make sure you are in the API's root directory)
-4. Run client with `npm start`
+1. Clone this repo as well as the [scheduler-api](https://github.com/lighthouse-labs/scheduler-api)
+2. Install dependencies with `npm install` for both the client and server
+3. Follow the instructions for setting up the server on the [scheduler-api](https://github.com/lighthouse-labs/scheduler-api) repo
+4. Run both the client and server simultaneously (make sure you are in their respective directories)
+    - Run the Webpack Development Server with `npm start`
+    - Run the Webpack Development Client with `npm start`
 
 ## Running the tests
 
