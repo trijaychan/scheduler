@@ -10,7 +10,7 @@ export default function InterviewerListItem(props) {
   });  
 
   return (
-    <li className={itemClasses} onClick={onChange}>
+    <li className={itemClasses} onClick={onChange} datatest-id="interviewer">
       <img
         className="interviewers__item-image"
         src={props.avatar}
