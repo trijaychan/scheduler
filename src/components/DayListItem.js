@@ -3,6 +3,7 @@ import classNames from "classnames"
 
 import "components/DayListItem.scss";
 
+// component that displays a single weekday and information about ti
 export default function DayListItem(props) {
   const { setDay } = props;
   const classes = classNames("day-list__item", {
@@ -10,6 +11,8 @@ export default function DayListItem(props) {
     "day-list__item--full": props.spots === 0
   });
 
+  // function for formatting the text which shows the number of spots for a
+  // given day
   const formatSpots = (spots) => {
     if (spots === 0) {
       return "No spots remaining";

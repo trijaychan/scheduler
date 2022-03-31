@@ -2,6 +2,8 @@ import React from "react";
 
 import "components/Appointment/styles.scss";
 
+// component that shows information about an appointment and allows them to
+// delete or edit it
 export default function Show(props) {
   return (
     <main className="appointment__card appointment__card--show">

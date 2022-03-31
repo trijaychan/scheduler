@@ -2,6 +2,7 @@ import React from "react";
 
 import "components/Appointment/styles.scss";
 
+// an error pop-up that displays a custom message from props
 export default function Error(props) {
   return (
     <main className="appointment__card appointment__card--error">

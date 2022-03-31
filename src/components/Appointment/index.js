@@ -10,6 +10,7 @@ import Confirm from "./Confirm";
 import Error from "./Error";
 import useVisualMode from "hooks/useVisualMode";
 
+// constants which will be used for setting modes
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
@@ -20,9 +21,12 @@ const EDIT = "EDIT";
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
+// the root appointment component that determines which view is shown
 export default function Appointment(props) {
+  // state variable and functions from custom hook
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
 
+  // function called when form is submitted
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -31,19 +35,26 @@ export default function Appointment(props) {
     
     transition(SAVING, true);
 
+    // saves appointment through api
     props.bookInterview(props.id, interview)
+      // transitions to showing newly created appointment if there are no
+      // problems with the api
       .then(() => transition(SHOW))
+      // shows an error otherwise
       .catch(error => transition(ERROR_SAVE));
   };
 
+  // function called when user wants to delete an appointment
   function cancel(id) {
     transition(DELETING, true);
 
+    // deletes data about appointment through api
     props.cancelInterview(props.id)
       .then(() => transition(EMPTY))
       .catch(error => transition(ERROR_DELETE, true));
   };
 
+  // returns html based on mode state variable
   return (
     <article className="appointment">
       <Header time={props.time} />

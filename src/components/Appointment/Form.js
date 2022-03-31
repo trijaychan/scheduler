@@ -4,21 +4,22 @@ import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 import "components/Appointment/styles.scss";
 
+// a form which is used to create appointments
 export default function Form(props) {
+  // state variables for student name, interviewer id, and error message
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
 
-  function reset() {
+  // sets user inputs back to default and returns to previous mode
+  function cancel() {
     setStudent("");
     setInterviewer(null);
-  };
-
-  function cancel() {
-    reset();
     props.onCancel();
   }
 
+  // checks if user input for student name is valid
+  // sets error message if not and saves appointment otherwise
   function validate() {
     if (!student) {
       setError("Student name cannot be blank");
@@ -51,7 +52,7 @@ export default function Form(props) {
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <Button danger onClick={() => cancel()}>Cancel</Button>
+          <Button danger onClick={cancel}>Cancel</Button>
           <Button confirm onClick={validate}>Save</Button>
         </section>
       </section>

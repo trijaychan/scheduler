@@ -7,6 +7,7 @@ import DayList from "components/DayList";
 import Appointment from "./Appointment";
 
 export default function Application(props) {
+  // exports modularized state and state functions
   const {
     state,
     setDay,
@@ -14,8 +15,10 @@ export default function Application(props) {
     cancelInterview
   } = useApplicationData();
 
+  // uses selector to create an array containing the interviewers for the day
   const dailyInterviewers = getInterviewersForDay(state, state.day);
 
+  // an array of appointments that uses the state appointments for props
   const schedule = getAppointmentsForDay(state, state.day).map((appointment) => {
     return (
       <Appointment

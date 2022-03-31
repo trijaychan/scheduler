@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import InterviewerListItem from "./InterviewerListItem"
 import "components/InterviewerList.scss"
 
+// component that shows a group of interviewers
 function InterviewerList(props) {
   const list = props.interviewers.map((interviewer) => {
     return (
@@ -28,6 +29,7 @@ function InterviewerList(props) {
   );
 };
 
+// validates that interviewers prop is an array
 InterviewerList.propTypes = {
   interviewers: PropTypes.array.isRequired
 };

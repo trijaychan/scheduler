@@ -3,6 +3,8 @@ import React from "react";
 import "components/Appointment/styles.scss";
 import Button from "components/Button";
 
+// a pop-up message for users when they are trying to delete an appointment
+// displays a message from props
 export default function Confirm(props) {
   return (
     <main className="appointment__card appointment__card--confirm">
