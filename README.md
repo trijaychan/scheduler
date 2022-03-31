@@ -19,7 +19,7 @@ A react application that allows users to book and cancel interviews.
 
 ### Running Jest Test Framework
 
-#### Covers the following:
+Covers the following:
 - Selector Functions
 - Visual Mode Custom Hook
 - Components:
