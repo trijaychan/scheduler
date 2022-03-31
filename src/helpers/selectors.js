@@ -18,7 +18,7 @@ export function getAppointmentsForDay(state, day) {
 export function getInterviewersForDay(state, day) {
   const { days, interviewers } = state;
   const dayFromState = days.filter(el => el.name === day);
-  const ids = (dayFromState[0] ? dayFromState[0].interviewers: []);
+  const ids = (dayFromState[0] ? dayFromState[0].interviewers : []);
   
   if (interviewers) {
     return Object.values(interviewers).filter(el => ids.includes(el.id));
