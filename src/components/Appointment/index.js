@@ -23,8 +23,9 @@ const ERROR_DELETE = "ERROR_DELETE";
 
 // the root appointment component that determines which view is shown
 export default function Appointment(props) {
+  const { interview, bookInterview, cancelInterview, id, time, interviewers } = props;
   // state variable and functions from custom hook
-  const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
+  const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
   // function called when form is submitted
   function save(name, interviewer) {
@@ -36,7 +37,7 @@ export default function Appointment(props) {
     transition(SAVING, true);
 
     // saves appointment through api
-    props.bookInterview(props.id, interview)
+    bookInterview(id, interview)
       // transitions to showing newly created appointment if there are no
       // problems with the api
       .then(() => transition(SHOW))
@@ -49,7 +50,7 @@ export default function Appointment(props) {
     transition(DELETING, true);
 
     // deletes data about appointment through api
-    props.cancelInterview(props.id)
+    cancelInterview(id)
       .then(() => transition(EMPTY))
       .catch(error => transition(ERROR_DELETE, true));
   };
@@ -57,18 +58,18 @@ export default function Appointment(props) {
   // returns html based on mode state variable
   return (
     <article className="appointment">
-      <Header time={props.time} />
+      <Header time={time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
         <Show
-          student={props.interview.student}
-          interviewer={props.interview.interviewer}
+          student={interview.student}
+          interviewer={interview.interviewer}
           onEdit={() => transition(EDIT)}
           onDelete={() => transition(CONFIRM)}
         />
       )}
       {mode === CREATE && <Form 
-        interviewers={props.interviewers}
+        interviewers={interviewers}
         onCancel={back}
         onSave={save}
       />}
@@ -80,9 +81,9 @@ export default function Appointment(props) {
         />}
       {mode === DELETING && <Status message="Deleting..." />}
       {mode === EDIT && <Form
-        student={props.interview.student}
-        interviewer={props.interview.interviewer.id}
-        interviewers={props.interviewers}
+        student={interview.student}
+        interviewer={interview.interviewer.id}
+        interviewers={interviewers}
         onCancel={back}
         onSave={save}
         />
