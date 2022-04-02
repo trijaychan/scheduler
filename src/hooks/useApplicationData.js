@@ -23,20 +23,19 @@ export default function useApplicationData() {
       axios.get("http://localhost:8001/api/interviewers")
     ]).then((all) => {
       // updates state variable using data from requests
-      setState({ ...state, days: all[0].data, appointments: all[1].data, interviewers: all[2].data });
+      setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
     });
   }, []);
 
   // function that returns a new days array which has an updated number of spots
-  function updateSpots(state, booking) {
-    const { days, appointments } = state;
+  function updateSpots(state, appointments) {
+    const { days } = state;
 
     const index = days.filter((el) => el.name === state.day)[0].id - 1;
     const dayAppointments = Object.values(appointments).filter((el) => days[index].appointments.includes(el.id));
-    const spots = dayAppointments.filter((el) => !el.interview).length + (booking ? -1 : 1);
+    const spots = dayAppointments.filter((el) => !el.interview).length;
     
     const newDays = [...days.slice(0, index), { ...days[index], spots }, ...days.slice(index + 1, days.length)];
-    console.log(newDays);
 
     return newDays;
   };
@@ -46,36 +45,35 @@ export default function useApplicationData() {
     // new appointments object for state that has new appointment added
     const appointments = {
       ...state.appointments,
-      [id]: {
-        ...state.appointments[id],
-        interview: { ...interview }
-      }
+      [id]: { ...state.appointments[id], interview: { ...interview } }
     };
     
     // makes a put request to api endpoint to add save appointment
     return axios.put(`http://localhost:8001/api/appointments/${id}`, { interview })
       .then(() => {
         // sets state with new appointments object and updated spots
-        setState({
-          ...state,
+        setState(prev => ({
+          ...prev,
           appointments,
-          days: updateSpots(state, true)  
-        });
+          days: updateSpots(state, appointments)
+        }));
     });
   };
   
   // function that cancels an ppointment through the api
   function cancelInterview(id) {
+    const appointments = {
+      ...state.appointments,
+      [id]: { ...state.appointments[id], interview: null }
+    };
+
     return axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then(() => {
-        setState({
-          ...state,
-          appointments: {
-            ...state.appointments,
-            [id]: { ...state.appointments[id], interview: null}
-          },
-          days: updateSpots(state, false)
-        });
+        setState(prev => ({
+          ...prev,
+          appointments,
+          days: updateSpots(state, appointments)
+        }));
       });
   };
 
