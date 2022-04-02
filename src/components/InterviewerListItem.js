@@ -5,9 +5,9 @@ import "components/InterviewerListItem.scss"
 
 // component for each clickable interviewer in the interviewer list
 export default function InterviewerListItem(props) {
-  const { onChange } = props;
+  const { selected, onChange, avatar, name } = props;
   const itemClasses = classNames("interviewers__item", {
-    "interviewers__item--selected": props.selected
+    "interviewers__item--selected": selected
   });  
 
   // if the interviewer is selected then they are highlighted and their
@@ -16,11 +16,11 @@ export default function InterviewerListItem(props) {
     <li className={itemClasses} onClick={onChange}>
       <img
         className="interviewers__item-image"
-        src={props.avatar}
-        alt={props.name}
+        src={avatar}
+        alt={name}
       />
 
-      {props.selected ? props.name : null}
+      {selected ? name : null}
     </li>
   );
 };
