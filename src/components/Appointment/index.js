@@ -23,7 +23,7 @@ const ERROR_DELETE = "ERROR_DELETE";
 
 // the root appointment component that determines which view is shown
 export default function Appointment(props) {
-  const { interview, bookInterview, cancelInterview, id, time, interviewers } = props;
+  const { interview, bookInterview, cancelInterview, time, interviewers } = props;
   // state variable and functions from custom hook
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
@@ -37,7 +37,7 @@ export default function Appointment(props) {
     transition(SAVING, true);
 
     // saves appointment through api
-    bookInterview(id, interview)
+    bookInterview(props.id, interview)
       // transitions to showing newly created appointment if there are no
       // problems with the api
       .then(() => transition(SHOW))
@@ -46,11 +46,11 @@ export default function Appointment(props) {
   };
 
   // function called when user wants to delete an appointment
-  function cancel(id) {
+  function cancel() {
     transition(DELETING, true);
 
     // deletes data about appointment through api
-    cancelInterview(id)
+    cancelInterview(props.id)
       .then(() => transition(EMPTY))
       .catch(error => transition(ERROR_DELETE, true));
   };
